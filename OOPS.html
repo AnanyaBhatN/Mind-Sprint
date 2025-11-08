@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindSprint</title>
+
+  <style>
+    :root {
+
+      /* colors */
+
+
+      --maximum-blue-green_10: hsla(185, 75%, 45%, 0.1);
+      --rich-black-fogra-29: hsl(217, 28%, 9%);
+      --gray-x-11-gray: hsl(0, 0%, 74%);
+      --oxford-blue_60: hsla(230, 41%, 14%, 0.6);
+      --bittersweet: hsl(5, 100%, 69%);
+      --smoky-black: rgb(7, 6, 1);
+      --gainsboro: hsl(0, 0%, 88%);
+      --black_90: hsla(0, 0%, 0%, 0.9);
+      --cultured: hsl(200, 12%, 95%);
+      --salmon: hsl(5, 100%, 73%);
+      --white: hsl(0, 0%, 100%);
+      --black: hsl(0, 0%, 0%);
+      --onyx: hsl(0, 0%, 27%);
+
+
+      /* typography */
+
+
+      --ff-roboto: 'Roboto', sans-serif;
+      --ff-josefin-sans: 'Josefin Sans', sans-serif;
+
+      --fs-1: 3rem;
+      --fs-2: 2.6rem;
+      --fs-3: 2.2rem;
+      --fs-4: 2rem;
+      --fs-5: 1.8rem;
+      --fs-6: 1.6rem;
+      --fs-7: 1.4rem;
+      --fs-8: 1.2rem;
+
+      --fw-300: 300;
+      --fw-500: 500;
+      --fw-600: 600;
+      --fw-700: 700;
+
+      /* transition */
+
+
+      --transition-1: 0.25s ease;
+      --transition-2: 0.5s ease;
+      --cubic-out: cubic-bezier(0.51, 0.03, 0.64, 0.28);
+      --cubic-in: cubic-bezier(0.33, 0.85, 0.56, 1.02);
+
+      /* spacing */
+
+
+      --section-padding: 60px;
+
+    }
+
+    /* RESET */
+
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a,
+    img,
+    span,
+    table,
+    tbody,
+    button,
+    ion-icon {
+      display: block;
+    }
+
+    button,
+    input {
+      font: inherit;
+      background: none;
+      border: none;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    address {
+      font-style: normal;
+      line-height: 1.8;
+    }
+
+    html {
+      font-family: var(--ff-josefin-sans);
+      font-size: 10px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--white);
+      font-size: 1.6rem;
+      padding-block-start: 90px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: hsl(0, 0%, 95%);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: hsl(0, 0%, 80%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: hsl(0, 0%, 70%);
+    }
+
+    /* REUSED STYLE */
+
+    .container {
+      padding-inline: 15px;
+    }
+
+    .section {
+      padding-block: var(--section-padding);
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4 {
+      color: var(--rich-black-fogra-29);
+    }
+
+    .h1 {
+      font-size: var(--fs-1);
+      font-weight: var(--fw-300);
+      line-height: 1.5;
+    }
+
+    .h2 {
+      font-size: var(--fs-2);
+    }
+
+    .h2.section-title {
+    text-align: center;
+}
+
+
+    .h3 {
+      font-size: var(--fs-4);
+    }
+
+    .h4 {
+      font-size: var(--fs-5);
+      text-transform: uppercase;
+    }
+
+    .btn {
+      background: var(--background, var(--bittersweet));
+      color: var(--color, var(--white));
+      font-size: var(--fs-5);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 14px 25px;
+      border: 1px solid var(--border-color, var(--bittersweet));
+    }
+
+    .btn-primary:is(:hover, :focus) {
+      --background: var(--salmon);
+      --border-color: var(--salmon);
+    }
+
+    .btn-secondary {
+      --background: transparent;
+      --border-color: var(--black);
+      --color: var(--black);
+    }
+
+    .btn-secondary:is(:hover, :focus) {
+      --background: hsla(0, 0%, 0%, 0.1);
+    }
+
+    .has-scrollbar {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+      scroll-snap-type: inline mandatory;
+    }
+
+    .has-scrollbar>li {
+      min-width: 100%;
+      scroll-snap-align: start;
+    }
+
+    .has-scrollbar::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .has-scrollbar::-webkit-scrollbar-track {
+      background: var(--white);
+      border-radius: 20px;
+      outline: 2px solid var(--bittersweet);
+    }
+
+    .has-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--bittersweet);
+      border: 2px solid var(--white);
+      border-radius: 20px;
+    }
+
+    .has-scrollbar::-webkit-scrollbar-button {
+      width: calc(25% - 40px);
+    }
+
+
+    .btn-link {
+      --background: none;
+      --border-color: none;
+      padding: 0;
+      margin-inline: auto;
+      max-width: max-content;
+      font-family: var(--ff-roboto);
+      font-size: var(--fs-6);
+      font-weight: var(--fw-500);
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--white);
+    }
+
+    .btn-link:is(:hover, :focus) {
+      border-color: transparent;
+    }
+
+
+    /* HEADER */
+
+    .header {
+      background: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: var(--transition-1);
+      z-index: 4;
+    }
+
+    .header.active {
+      box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.5);
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-block: 20px;
+    }
+
+    .nav-open-btn {
+      font-size: 40px;
+      background: var(--bittersweet);
+      color: var(--white);
+      padding: 8px;
+    }
+
+    .nav-open-btn:is(:hover, :focus) {
+      background: var(--salmon);
+    }
+
+    .nav-open-btn ion-icon {
+      --ionicon-stroke-width: 40px;
+    }
+
+    .navbar {
+      background: var(--white);
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 100%;
+      max-width: 270px;
+      height: 80%;
+      border-right: 3px solid var(--rich-black-fogra-29);
+      font-family: var(--ff-roboto);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      z-index: 2;
+      visibility: hidden;
+      transition: 0.25s var(--cubic-out);
+    }
+
+    .navbar.active {
+      visibility: visible;
+      transform: translateX(280px);
+      transition: 0.5s var(--cubic-in);
+    }
+
+    .nav-close-btn {
+      color: var(--rich-black-fogra-29);
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 13px;
+      font-size: 25px;
+      transition: var(--transition-1);
+    }
+
+    .nav-close-btn ion-icon {
+      --ionicon-stroke-width: 55px;
+    }
+
+    .nav-close-btn:is(:hover, :focus) {
+      color: var(--bittersweet);
+    }
+
+    .navbar .logo {
+      background: var(--maximum-blue-green_10);
+      padding-block: 50px 40px;
+    }
+
+
+    .navbar-list,
+    .nav-action-list {
+      margin: 30px;
+    }
+
+    .navbar-list {
+      padding: 20px;
+      border-bottom: 1px solid var(--gainsboro);
+    }
+
+    .navbar-link {
+      color: var(--rich-black-fogra-29);
+      padding-block: 10px;
+      transition: var(--transition-1);
+    }
+
+    .navbar-link:is(:hover, :focus) {
+      color: var(--bittersweet);
+    }
+
+    .navbar-item:not(:last-child) {
+      border-bottom: 1px solid var(--gainsboro);
+    }
+
+    .nav-action-list>li:first-child {
+      display: none;
+    }
+
+    .nav-action-btn {
+      color: var(--rich-black-fogra-29);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding-block: 10px;
+      transition: var(--transition-1);
+    }
+
+    .nav-action-btn:is(:hover, :focus) {
+      color: var(--bittersweet);
+    }
+
+    .nav-action-btn ion-icon {
+      font-size: 22px;
+      --ionicon-stroke-width: 25px;
+    }
+
+    .nav-action-text strong {
+      font-weight: initial;
+      color: var(--bittersweet);
+    }
+
+
+    /* Dropdown styling */
+    .dropdown-toggle {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--white);
+      border: 1px solid var(--gray-x-11-gray);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      list-style: none;
+      padding: 10px;
+      z-index: 2;
+      width: 200px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown-menu li {
+      padding: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-menu li:hover {
+      background-color: var(--maximum-blue-green_10);
+    }
+
+    .dropdown-toggle:hover .dropdown-menu,
+    .dropdown-toggle.active .dropdown-menu {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: hsla(0, 0%, 0%, 0.6);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-1);
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+
+    }
+
+
+    /* subject */
+
+
+    .subject {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: left;
+      min-height: 400px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .subject-title {
+      margin-bottom: 10px;
+    }
+
+    .subject-title>strong {
+      display: block;
+    }
+
+    .subject-text {
+      color: var(--onyx);
+      font-family: var(--ff-roboto);
+      font-size: var(--fs-8);
+      line-height: 1.8;
+      max-width: 46ch;
+      margin-bottom: 25px;
+    }
+
+    /* videos */
+
+
+    .videos-card {
+      /* background-repeat: no-repeat; */
+      /* background-size: cover; */
+      background-position: center;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding-block: 45px 25px;
+    }
+
+    iframe {
+      height: 100vh;
+    }
+
+
+    /* materials */
+
+    .materials-list {
+      display: grid;
+      gap: 40px;
+    }
+
+    .materials-card {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: var(--white);
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .materials-card .card-subtitle {
+      font-size: var(--fs-5);
+      margin-bottom: 15px;
+    }
+
+    .materials-card .card-title {
+      color: inherit;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    /* FOOTER */
+
+
+    .footer {
+      font-family: var(--ff-roboto);
+    }
+
+    .footer-top {
+      background: var(--cultured);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-content-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 40px;
+    }
+
+    .about-text {
+      flex: 1;
+      max-width: 40%;
+      /* Reduce the width to make space for other items */
+      color: var(--onyx);
+      line-height: 1.9;
+      font-size: 1.5rem;
+      /* Adjust font size for a smaller paragraph */
+      margin-bottom: 20px;
+    }
+
+    .about-text,
+    .footer-list,
+    .footer-list-title {
+      flex: 1;
+      min-width: 250px;
+      /* Ensures responsiveness */
+    }
+
+    .footer-list,
+    .footer-link-box {
+      flex: 1;
+      min-width: 250px;
+      max-width: 30%;
+      /* Ensures they fit within the row */
+    }
+
+    .footer-list-title {
+      position: relative;
+      color: var(--rich-black-fogra-29);
+      font-family: var(--ff-josefin-sans);
+      font-size: var(--fs-3);
+      font-weight: var(--fw-700);
+      margin-bottom: 25px;
+    }
+
+    .footer-list-title::after {
+      content: "";
+      display: block;
+      background: var(--bittersweet);
+      width: 50px;
+      height: 2px;
+      margin-top: 10px;
+    }
+
+    .footer-link {
+      flex: 1;
+      min-width: 250px;
+      color: var(--onyx);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-block: 6px;
+      transition: var(--transition-1);
+    }
+
+    a.footer-link:is(:hover, :focus) {
+      color: var(--bittersweet);
+    }
+
+    .footer-link-text {
+      flex: 1;
+    }
+
+    .footer-list:not(:last-child) {
+      margin-bottom: 30px;
+    }
+
+    .footer-list:first-child ion-icon {
+      color: var(--bittersweet);
+      font-size: 22px;
+    }
+
+    .about-text {
+      flex: 1;
+      min-width: 250px;
+      color: var(--onyx);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+
+    .footer-bottom {
+      background: var(--rich-black-fogra-29);
+      padding-block: 20px;
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--white);
+    }
+
+    .copyright-link {
+      display: inline-block;
+      color: var(--bittersweet);
+    }
+
+
+    /* GO TOP */
+
+    .go-top-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bittersweet);
+      color: var(--white);
+      font-size: 20px;
+      padding: 10px;
+      border: 4px solid var(--white);
+      border-radius: 50%;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-1);
+      z-index: 2;
+    }
+
+    .go-top-btn.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .go-top-btn:is(:hover, :focus) {
+      background: var(--salmon);
+    }
+
+    /* chatbot button */
+    .chatbot-icon {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 60px;
+      height: 60px;
+      background: var(--bittersweet);
+      color: var(--white);
+      border: 4px solid var(--white);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Make chatbot icon visible when active */
+    .chatbot-icon.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .chatbot-icon:is(:hover, :focus) {
+      background: var(--salmon);
+    }
+
+    .chatbot-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .icon {
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 4px solid var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .svg-chat {
+      width: 24px;
+      height: 24px;
+      fill: var(--bittersweet);
+    }
+
+    /*MEDIA QUERIES*/
+
+
+    /* Bounce animation to the chat icon */
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-10px);
+      }
+
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .dropdown-toggle {
+        position: static;
+      }
+
+      .dropdown-link {
+        padding: 10px;
+        display: block;
+        text-align: left;
+        width: 100%;
+      }
+
+      .dropdown-menu {
+        position: static;
+        display: none;
+        width: 100%;
+        box-shadow: none;
+        opacity: 1;
+        transform: none;
+        border: none;
+      }
+
+      .dropdown-toggle:hover .dropdown-menu,
+      .dropdown-toggle.active .dropdown-menu {
+        display: block;
+      }
+
+      .dropdown-menu li:hover {
+        background-color: var(--light-gray);
+        /* Example hover color */
+      }
+
+      .navbar-list {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .navbar-item {
+        width: 100%;
+      }
+
+      .navbar-link {
+        padding: 15px;
+        text-align: left;
+      }
+
+      .navbar-link:hover {
+        background-color: var(--light-gray);
+      }
+    }
+
+    /* responsive for larger than 575px screen */
+
+    @media (min-width: 575px) {
+
+      /* CUSTOM PROPERTY */
+
+      :root {
+
+        /* typography */
+
+        --fs-1: 4rem;
+
+      }
+
+      /* REUSED STYLE */
+
+      .container {
+        max-width: 650px;
+        width: 100%;
+        margin-inline: auto;
+      }
+
+      .has-scrollbar>li {
+        min-width: calc(50% - 12.5px);
+      }
+
+      /* subject */
+
+      .subject-text {
+        font-size: var(--fs-7);
+      }
+
+      /* materials */
+
+      .materials-card {
+        text-align: left;
+      }
+
+      .materials-card .card-title {
+        max-width: 14ch;
+      }
+
+      .materials-card .btn-link {
+        margin-inline: 0;
+      }
+
+      /* FOOTER */
+
+
+      .footer-link-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 30px;
+      }
+
+    }
+
+    /* responsive for larger than 768px screen */
+
+    @media (min-width: 768px) {
+
+      /* CUSTOM PROPERTY */
+
+      :root {
+
+        /* typography */
+
+        --fs-2: 3rem;
+
+      }
+
+      /* REUSED STYLE */
+
+      .container {
+        max-width: 720px;
+      }
+
+      .h4 {
+        --fs-5: 2rem;
+      }
+
+      /* GO TOP */
+
+      .go-top-btn {
+        padding: 15px;
+        border-width: 6px;
+        bottom: 30px;
+        right: 30px;
+      }
+
+    }
+
+    /* responsive for larger than 992px screen */
+
+    @media (min-width: 992px) {
+
+      /* CUSTOM PROPERTY */
+
+      :root {
+
+        /* typography */
+
+        --fs-3: 2.4rem;
+
+      }
+
+      /* REUSED STYLE */
+
+      .container {
+        max-width: 970px;
+      }
+
+      .has-scrollbar>li {
+        min-width: calc(33.33% - 16.66px);
+      }
+
+      /* HEADER */
+
+      .nav-open-btn,
+      .nav-close-btn,
+      .navbar .logo,
+      .nav-action-text,
+      .overlay {
+        display: none;
+      }
+
+      .navbar,
+      .navbar-list,
+      .nav-action-list {
+        all: unset;
+      }
+
+      .navbar-item:not(:last-child) {
+        border: none;
+      }
+
+      .navbar-list,
+      .nav-action-list {
+        display: flex;
+      }
+
+      .nav-action-list {
+        gap: 20px;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+      }
+
+      .navbar-list {
+        margin-inline: auto;
+        gap: 35px;
+      }
+
+      .navbar-link {
+        font-family: var(--ff-roboto);
+        font-weight: var(--fw-500);
+      }
+
+      .nav-action-list>li:first-child {
+        display: block;
+      }
+
+      .nav-action-btn {
+        position: relative;
+      }
+
+
+      /* subjec */
+
+      .subject {
+        height: 480px;
+      }
+
+      /* materials */
+
+      .materials-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+      }
+
+      .materials-card {
+        padding-inline: 50px;
+      }
+    }
+
+    /* responsive for larger than 1200px screen */
+
+    @media (min-width: 1200px) {
+
+      /* CUSTOM PROPERTY */
+
+      :root {
+
+        /* typography */
+
+        --fs-1: 5rem;
+        --fs-2: 3.6rem;
+
+      }
+
+      /* REUSED STYLE */
+      .container {
+        max-width: 1280px;
+      }
+
+      /* subject */
+
+
+      .subject {
+        height: 580px;
+      }
+
+      .subject .container {
+        max-width: 1000px;
+      }
+
+      .subject-text {
+        font-size: var(--fs-6);
+        max-width: 50ch;
+      }
+
+      /* Banner Container */
+      .banner-post-list.has-scrollbar {
+        display: flex;
+        gap: 0;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scroll-snap-type: x mandatory;
+      }
+
+      /* Banner Items with Fixed Size */
+      .banner-post-item {
+        flex: 0 0 auto;
+        width: 150px;
+        height: 150px;
+        scroll-snap-align: start;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Images with Full Container Coverage */
+      .banner {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      /* Hover Effect (No Scaling) */
+      .banner-post-item:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Scrollbar Styling */
+      .banner-post-list::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .banner-post-list::-webkit-scrollbar-track {
+        background: var(--white);
+      }
+
+      .banner-post-list::-webkit-scrollbar-thumb {
+        background: var(--bittersweet);
+        border-radius: 10px;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .banner-post-item {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .banner-post-item {
+          width: 80px;
+          height: 80px;
+        }
+      }
+
+      @media (max-width: 300px) {
+        .banner-post-item {
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      /* FOOTER */
+
+
+      .footer-link-box {
+        grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+        gap: 50px;
+      }
+
+    }
+  </style>
+
+  <!-- google font link -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- preload banner -->
+
+  <link rel="preload" href="images/wt.png" as="image">
+
+</head>
+
+<body id="top">
+
+  <!-- HEADER -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <div class="overlay" data-overlay></div>
+
+      <a href="#" class="logo"><i class="fas fa-book"></i> MIND SPRINT</a>
+
+      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar" data-navbar>
+
+        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link">Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="OOPS.html" class="navbar-link">About</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#videos" class="navbar-link">Videos</a>
+          </li>
+
+          <li class="navbar-item dropdown-toggle">
+            <a href="#" class="navbar-link dropdown-link">Courses</a>
+            <ul class="dropdown-menu">
+              <li><a href="WT.html" class="navbar-link">Web Technology</a></li>
+              <li><a href="DBMS.html" class="navbar-link">DBMS</a></li>
+              <li><a href="OOPS.html" class="navbar-link">OOPS</a></li>
+              <li><a href="MATHS.html" class="navbar-link">MATHS</a></li>
+            </ul>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#materials" class="navbar-link">Study Materials</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#contact" class="navbar-link">Contact</a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+    <article>
+
+      <!-- subject -->
+
+      <section class="section subject" style="background-image: url('images/wt1.png'); ">
+        <div class="container">
+
+          <h2 class="h1 subject-title">
+            <strong>Object Oriented Programming Language</strong>
+          </h2>
+          <button id="tts-btn" class="tts-btn" aria-label="Click to hear the class details" tabindex="0">🔊</button>
+
+          <p id="subject" class="subject-text">
+            <strong> Object-Oriented Programming (OOP) in C++ is a programming paradigm that organizes code into objects, allowing for more modular, reusable, and maintainable code. C++ is well-suited for OOP.
+            </strong>
+          </p>
+
+          <a href="blog3.html">
+            <button class="btn btn-primary">
+              <span>More</span>
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- videos -->
+
+      <section id="videos" class="section videos">
+        <div  class="container">
+          <h2 class="h2 section-title">
+            VIDEOS
+          </h2> <br>
+
+          <ul class="videos-list has-scrollbar">
+
+            <li>
+              <div  class="videos-card">
+                <iframe src="https://www.youtube.com/embed/KXDzBglp83M?si=9nn94C1zA5JUJV6T" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <br>
+                <h3 class="h4 card-title">Friend Function</h3>
+              </div>
+            </li>
+
+            <li>
+              <div class="videos-card">
+                <iframe src="https://www.youtube.com/embed/1LGJSRFrxqQ?si=Y5-CAOWI-36s6iq_" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <br>
+                <h3 class="h4 card-title">Constructors</h3>
+              </div>
+            </li>
+
+            <li>
+              <div class="videos-card">
+                <iframe src="https://www.youtube.com/embed/gEcLCba7HQU?si=oThkzqU7mK9dsoxG" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <br>
+                <h3 class="h4 card-title">Destructors</h3>
+              </div>
+            </li>
+
+            <li>
+              <div class="videos-card">
+                <iframe src="https://www.youtube.com/embed/lsuSwV1FBbA?si=Fg5t30y19lCwsG9_" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <br>
+                <h3 class="h4 card-title">Inheritance & POlymorphism</h3>
+              </div>
+            </li>
+
+            <li>
+              <div class="videos-card">
+                <iframe src="https://www.youtube.com/embed/T8f4ajtFU9g?si=6bZr-ZRKokKckfAK" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <br>
+                <h3 class="h4 card-title">Virtual Function</h3>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- materials -->
+
+      <section id="materials" class="section materials">
+        <div class="container">
+          <h2 class="h2 section-title">STUDY MATERIALS</h2>
+
+          <ul class="materials-list">
+
+            <li>
+              <div  class="materials-card" style="background-image: url('images/wt2.png')">
+                <h3 class="h2 card-title">FRIEND FUNCTION</h3>
+                <p class="card-subtitle"> A friend function is a function that is not a member of a class but has permission to access its private and protected members. This function is declared by using the friend keyword within the class whose private data it needs to access.</p>
+                <a target="_blank" href="./images/OOP-05 Functions.pdf" class="btn btn-link">
+                  <span>PDF</span>
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="materials-card" style="background-image: url('images/wt3.png')">
+                <h3 class="h2 card-title">CONSTRUCTORS</h3>
+                <p class="card-subtitle"> A constructor is a special member function of a class that initializes objects when they are created. It has the same name as the class and is automatically called upon object instantiation, setting initial values for class attributes or performing necessary setup.</p>
+                <a href="file:///C:/miniproject/images/CSS2024 (1).pdf" class="btn btn-link">
+                  <span>PDF</span>
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="materials-card" style="background-image: url('images/wt4.png')">
+                <h3 class="h2 card-title">DESTRUCTORS</h3>
+                <p class="card-subtitle"> A destructor is a special member function of a class that is automatically called when an object goes out of scope or is explicitly deleted. It has the same name as the class but is prefixed with a tilde (~) and is used to release resources. </p>
+                <a href="./images/OOP-10 Virtual function & Run-time polymorphism-1.pdf" class="btn btn-link">
+                  <span>PDF</span>
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="materials-card" style="background-image: url('images/wt5.png')">
+                <h3 class="h2 card-title">INHERITANCE & POLYMORPHISM</h3>
+                <p class="card-subtitle"> Inheritance allows a derived class to inherit properties and behaviors from a base class, while polymorphism enables objects of different classes to be treated as instances of a common superclass, facilitating dynamic method invocation and enhancing code flexibility. </p>
+                <a href="./images/OOP-08 Inheritance I.pdf" class="btn btn-link">
+                  <span>PDF</span>
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="materials-card" style="background-image: url('images/wt6.png')">
+                <h3 class="h2 card-title">VIRTUAL FUNCTION</h3>
+                <p class="card-subtitle">A virtual function is a member function in a base class that can be overridden in derived classes, allowing for dynamic binding and enabling polymorphism, so that the correct function. </p>
+                <a href="./images/OOP-09 Pointers-2.pdf" class="btn btn-link">
+                  <span>PDF</span>
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- BANNER POST -->
+
+      <section class="section banner-post">
+        <ul class="banner-post-list has-scrollbar">
+          <li class="banner-post-item"><img src="images/wt7.png" alt="Post Image" class="banner"></li>
+          <li class="banner-post-item"><img src="images/wt8.png" alt="Post Image" class="banner"></li>
+          <li class="banner-post-item"><img src="images/wt9.png" alt="Post Image" class="banner"></li>
+          <li class="banner-post-item"><img src="images/wt10.png" alt="Post Image" class="banner"></li>
+          <li class="banner-post-item"><img src="images/wt11.png" alt="Post Image" class="banner"></li>
+          <li class="banner-post-item"><img src="images/wt12.png" alt="Post Image" class="banner"></li>
+          <li class="banner-post-item"><img src="images/wt13.png" alt="Post Image" class="banner"></li>
+        </ul>
+      </section>
+
+
+
+    </article>
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer  class="footer">
+
+    <div id="contact" class="footer-content-container">
+      <div class="footer-list">
+
+        <p class="footer-list-title">About Us</p>
+
+        <p class="about-text">
+          This website provides comprehensive tutorials and resources for MCA students, covering subjects like Web
+          Technology, Data Structures, DBMS, and more. Stay updated with the latest lessons, assignments, and exam
+          preparation materials. </p>
+        </p>
+
+      </div>
+
+
+
+
+      <ul class="footer-list">
+
+        <li>
+          <p class="footer-list-title">Ouick Links</p>
+        </li>
+
+        <li>
+          <a href="index.html" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">Home</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="OOPS.html" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">About</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#videos" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">Videos</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#materials" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">Study Materials</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#contact" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">Contact</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="footer-link-box">
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Contact Us</p>
+          </li>
+
+          <li>
+            <address class="footer-link">
+              <ion-icon name="location"></ion-icon>
+
+              <span class="footer-link-text">
+                PIN 221314 INDIA
+              </span>
+            </address>
+          </li>
+
+          <li>
+            <a href="tel:+918299890048" class="footer-link">
+              <ion-icon name="call"></ion-icon>
+
+              <span class="footer-link-text">+918299890048</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="mailto:jalajt41@gmail.com" class="footer-link">
+              <ion-icon name="mail"></ion-icon>
+
+              <span class="footer-link-text">MindSprint@gmail.com</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2024 <a href="#" class="copyright-link">Mind Sprint</a>. All Rights Reserved
+        </p>
+      </div>
+    </div>
+    </div>
+
+  </footer>
+
+  <!-- GO TO TOP -->
+
+
+  <a href="#top" class="go-top-btn" data-go-top>
+    <ion-icon name="arrow-up-outline"></ion-icon>
+  </a>
+
+
+  <!-- chatbot -->
+
+  <a href="oopsbot.html" class="chatbot-icon" chatbot-icon>
+    <div class="icon">
+      <!-- SVG Chat Bubble Icon -->
+      <svg class="svg-chat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M20 2H4C2.9 2 2 2.9 2 4v12c0 1.1.9 2 2 2h12l4 4v-4h2c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14h-2l-4 4v-4H4V4h16v12z" />
+      </svg>
+    </div>
+  </a>
+
+
+  <!-- custom js link -->
+
+  <script>
+    'use strict';
+
+    //  navbar toggle
+
+    const overlay = document.querySelector("[data-overlay]");
+    const navOpenBtn = document.querySelector("[data-nav-open-btn]");
+    const navbar = document.querySelector("[data-navbar]");
+    const navCloseBtn = document.querySelector("[data-nav-close-btn]");
+
+    const navElems = [overlay, navOpenBtn, navCloseBtn];
+
+    for (let i = 0; i < navElems.length; i++) {
+      navElems[i].addEventListener("click", function () {
+        navbar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      });
+    }
+
+
+    //  header & go top btn active on page scroll
+
+
+    const header = document.querySelector("[data-header]");
+    const goTopBtn = document.querySelector("[data-go-top]");
+    const chatbotIcon = document.querySelector("[chatbot-icon]");
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollY >= 80) {
+        header.classList.add("active");
+        goTopBtn.classList.add("active");
+      } else {
+        header.classList.remove("active");
+        goTopBtn.classList.remove("active");
+      }
+    });
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollY >= 80) {
+        header.classList.add("active");
+        chatbotIcon.classList.add("active");
+      } else {
+        header.classList.remove("active");
+        chatbotIcon.classList.remove("active");
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const dropdownToggle = document.querySelector('.dropdown-link');
+      const dropdownMenu = document.querySelector('.dropdown-menu');
+
+      dropdownToggle.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent navigation for clicking on the link itself
+        dropdownMenu.classList.toggle('active'); // Toggle dropdown
+      });
+    });
+
+    function readText(text) {
+    if ('speechSynthesis' in window) {
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = 'en-US';
+        window.speechSynthesis.speak(speech);
+    } else {
+        alert("Text-to-Speech is not supported in this browser.");
+    }
+}
+document.getElementById('tts-btn').addEventListener('click', function() {
+    readText('Object-Oriented Programming (OOP) in C++ is a programming paradigm that organizes code into objects, allowing for more modular, reusable, and maintainable code. C++ is well-suited for OOP.');
+});
+
+  </script>
+
+  <!-- ionicon link -->
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

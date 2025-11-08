@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            font-family: montserrat, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #121212;
+        }
+
+        .login-form {
+            width: 360px;
+            background: #2a2a2a;
+            height: 580px;
+            padding: 80px 40px;
+            border-radius: 10px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .login-form h1 {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #f0f0f0;
+        }
+
+        .txtb {
+            border-bottom: 2px solid #444;
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .txtb input {
+            font-size: 15px;
+            color: #f0f0f0;
+            border: none;
+            width: 100%;
+            outline: none;
+            background: none;
+            padding: 0 5px;
+            height: 40px;
+        }
+
+        .txtb input::placeholder {
+            color: #bbb;
+        }
+
+        .logbtn {
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: none;
+            background-color: #ffd700;
+            color: #000;
+            outline: none;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .logbtn:hover {
+            background-color: #ffc107;
+        }
+
+        .bottom-text {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 13px;
+            color: #f0f0f0;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            cursor: pointer;
+            color: #f0f0f0;
+        }
+
+        @media (min-width: 768px) {
+            .login-form {
+                min-width: 400px;
+                /* Increase minimum width on larger screens */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .login-form {
+                min-width: 500px;
+                /* Further increase on very large screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form action="index.html" method="post" class="login-form" onsubmit="return validateForm()">
+        <h1>Login</h1>
+
+        <div class="txtb">
+            <input type="text" id="username" placeholder="Username" required>
+        </div>
+
+        <div class="txtb">
+            <input type="password" id="password" placeholder="Password" required>
+            <span class="show-password" onclick="togglePassword()">Show</span>
+        </div>
+
+        <input type="submit" class="logbtn" value="Login">
+
+        <div class="bottom-text">
+            Don't have an account? <a href="signup.html" style="color: #ffb74d;">Sign up || </a>
+            <a href="forgotpass.html" style="color: #ffb74d;">Forgot Password</a>
+        </div>
+    </form>
+
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById('password');
+            var showPasswordSpan = document.querySelector('.show-password');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                showPasswordSpan.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                showPasswordSpan.textContent = 'Show';
+            }
+        }
+
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Basic validation
+            if (!/^[A-Za-z]+$/.test(username)) {
+                alert("Username must contain only letters (no numbers or special characters).");
+                return false;
+            }
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters.");
+                return false;
+            }
+
+            // Set cookie for username upon successful login
+            setCookie("username", username, 7); // Save for 7 days
+            return true; // Allow form submission to proceed
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Convert days to milliseconds
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=Strict; Secure`;
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                while (cookie.charAt(0) === ' ') cookie = cookie.substring(1);
+                if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
+            }
+            return null;
+        }
+
+        // Load saved username from cookies on page load
+        window.onload = function () {
+            const savedUsername = getCookie("username");
+            if (savedUsername) {
+                document.getElementById("username").value = savedUsername;
+                alert(`Welcome back, ${savedUsername}!`);
+            }
+        };
+    </script>
+</body>
+
+</html>

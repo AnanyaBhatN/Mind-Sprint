@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB TECHNOLOGY BLOG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+
+        body {
+            background-color: #1E1E1E; /* Dark background for night mode */
+            color: #E0E0E0; /* Light text color for readability */
+        }
+
+        .container {
+            width: 100%;
+            position: relative;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #27a7ca;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #3042e5;
+            transform: translateY(-3px);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        .back-button::before {
+            content: "← ";
+            font-size: 18px;
+        }
+
+        .container .row {
+            width: 80%;
+            margin: auto;
+        }
+
+        .container .row .header h1 {
+            padding-top: 30px;
+            font-size: 45px;
+            color: #30e1c9;
+            text-align: center;
+        }
+
+        .container .row .header p {
+            margin-top: 15px;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #b0b0b0; /* Light gray for subtext */
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: auto;
+        }
+
+        .content .card {
+            flex: 1;
+            margin: 50px 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6); /* Darker shadow for night mode */
+            background-color: #333333; /* Darker card background */
+            max-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            color: #E0E0E0; /* Light text inside cards */
+        }
+
+        .content .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.8);
+        }
+
+        .content .card img {
+            width: 100%;
+            height: auto;
+            opacity: 0.9;
+        }
+
+        .content .card h4 {
+            margin-top: 10px;
+            margin-left: 10px;
+            font-size: 18px;
+            color: #30e1c9; /* Highlighted color for titles */
+        }
+
+        .content .card p {
+            font-size: 15px;
+            color: #c0c0c0;
+            line-height: 1.5;
+            padding: 10px;
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .card.full p {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .read-more-btn {
+            display: block;
+            text-align: center;
+            margin: 10px auto;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #FFFFFF;
+            background-color: #27a7ca;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background-color: #3042e5;
+        }
+
+        @media screen and (max-width:768px) {
+            .content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="header">
+                <h1>DISCRETE MATHS</h1>
+            </div>
+        </div>
+        <div class="content">
+            <div class="card">
+                <img src="blogimg/maths1.jpeg" alt="HTML, CSS, and JavaScript">
+                <h4>Your Guide to Modern Discrete Maths </h4>
+                <p>Our Math tutorials are designed to provide a thorough and engaging learning experience, covering a wide range of topics essential for students, professionals, 
+                and anyone looking to strengthen their mathematical skills. The courses are structured to accommodate learners at different levels, from 
+                beginners tackling basic arithmetic and algebra to more advanced students diving into calculus, linear algebra, and differential equations. 
+                Our tutorials break down complex concepts into easy-to-understand explanations, ensuring that even the most challenging topics are approachable. 
+                Each tutorial is carefully designed with a step-by-step approach, allowing learners to build a strong mathematical foundation and progress at
+                 a comfortable pace.</p>
+
+                <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+            </div>
+            <div class="card">
+                <img src="blogimg/maths3.jpeg" alt="Responsive Design">
+                <h4>About Videos</h4>
+                <p>The Math tutorials feature high-quality video lessons that not only explain theoretical concepts but also demonstrate practical applications. 
+                    These videos include detailed examples and step-by-step solutions to problems, helping students grasp the logic and techniques required to 
+                    solve mathematical questions effectively. By illustrating how math is used in real-world scenarios—such as in engineering, computer science, 
+                    economics, and physics—the lessons make the subject more relevant and interesting. The visual format helps in clarifying abstract ideas,
+                     allowing learners to see exactly how mathematical principles are applied, which is particularly beneficial for visual learners.</p>
+
+
+
+                <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+            </div>
+            <div class="card">
+                <img src="blogimg/maths2.jpeg" alt="Web Accessibility">
+                <h4>About Tutorials</h4>
+                <p>The Math tutorials cover a broad spectrum of subjects, including arithmetic, algebra, geometry, trigonometry, calculus, 
+            statistics, and discrete mathematics. Each subject is broken down into smaller, manageable sections, with lessons that focus on
+            specific topics like solving quadratic equations, understanding the Pythagorean theorem, or calculating derivatives and integrals.
+             This modular structure enables learners to pick and choose the topics they need to focus on, making the tutorials flexible enough to
+         serve as a supplementary resource for classroom learning, a tool for exam preparation, or a self-paced course for independent study.</p>
+
+                <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+            </div>
+        </div>
+        <a href="index.html" class="back-button">Main page</a>
+    </div>
+
+    <script>
+        // Smooth Scroll for Back Button
+        document.querySelector('.back-button').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = this.getAttribute('href');
+        });
+
+        // Toggle Read More/Read Less functionality
+        function toggleReadMore(button) {
+            const card = button.closest('.card');
+            const content = card.querySelector('p');
+            card.classList.toggle('full');
+            button.innerText = card.classList.contains('full') ? 'Read Less' : 'Read More';
+        }
+    </script>
+</body>
+
+</html>

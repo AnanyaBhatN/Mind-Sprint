@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB TECHNOLOGY BLOG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            position: relative;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #e19c30;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #c87d26;
+            transform: translateY(-3px);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        /* icon style for a more professional look */
+        .back-button::before {
+            content: "← ";
+            font-size: 18px;
+        }
+
+        .container .row {
+            width: 80%;
+            margin: auto;
+        }
+
+        .container .row .header h1 {
+            padding-top: 30px;
+            font-size: 45px;
+            color: #e19c30;
+            text-align: center;
+        }
+
+        .container .row .header p {
+            margin-top: 15px;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #6e6e6e;
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: auto;
+        }
+
+        .content .card {
+            flex: 1;
+            margin: 50px 20px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect for cards */
+        .content .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .content .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .content .card h4 {
+            margin-top: 10px;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        .content .card p {
+            font-size: 15px;
+            color: #6e6e6e;
+            line-height: 1.5;
+            padding: 10px;
+        }
+
+        @media screen and (max-width:768px) {
+            .content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="header">
+                <h1>OBJECT ORIENTED PROGRAMMING LANGUAGE(C++)</h1>
+                <p>OOP is short for object-oriented programming, a paradigm that makes codes in C++ reusable, flexible,
+                    and easy to read, manage, and maintain. Inheritance, polymorphism, abstraction, etc., make up the
+                    concept of OOPs in programming.</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="card">
+                <img src="images/wt6.png" alt="HTML, CSS, and JavaScript">
+                <h4>Principles of OOP C++</h4>
+                <p>OOP allows objects to interact with each other using four basic principles: encapsulation,
+                    inheritance, polymorphism, and abstraction. These four OOP principles enable objects to communicate
+                    and collaborate to create powerful applications.</p>
+            </div>
+            <div class="card">
+                <img src="images/wt5.png" alt="Responsive Design">
+                <h4>Purpose of OOPs</h4>
+                <p>Object-oriented programming aims to implement real-world entities like inheritance, hiding,
+                    polymorphism, etc. in programming. The main aim of OOPs is to bind together the data and the
+                    functions that operate on them so that no other part of the code can access this data except that
+                    function.</p>
+            </div>
+            <div class="card">
+                <img src="images/wt8.png" alt="Web Accessibility">
+                <h4>Why is OOP important?</h4>
+                <p>t simplifies complex systems, supports code organization, and models real-world scenarios
+                    effectively. Inheritance and polymorphism enhance flexibility, and OOP is widely taught and
+                    supported by popular programming languages, contributing to its widespread adoption.</p>
+            </div>
+        </div>
+        <!-- Back Button as a link -->
+        <a href="OOPS.html" class="back-button">Back to Web Technology</a>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    body {
+      height: 100vh;
+      font-family: Roboto, sans-serif;
+      margin: 0;
+      background-color: #2e2e2e; 
+      overflow: hidden;
+      display: flex;
+    }
+
+    .title {
+      margin: auto;
+      font-size: x-large;
+      font-family: Raleway, sans-serif;
+      color: #b19cd9; 
+      display: flex;
+      align-items: center;
+    }
+
+    .title i {
+      font-size: 48px;
+      color: #b19cd9;
+      margin-right: 8px;
+    }
+
+    @media (min-width: 450px) {
+      .main-card {
+        width: 96%;
+        max-width: 400px;
+        height: calc(100% - 32px) !important;
+        border-radius: 8px !important;
+        max-height: 600px;
+        margin: 16px !important;
+      }
+    }
+
+    .collapsed {
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 24px !important;
+      margin: 16px !important;
+    }
+
+    .main-card {
+      background: #3a3a3a;
+      color: #f0f0f0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: absolute;
+      transition: all 0.5s;
+      box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    #chatbot_toggle {
+      position: absolute;
+      right: 0;
+      border: none;
+      height: 48px;
+      width: 48px;
+      background: #6a5acd;
+      color: white;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #chatbot_toggle:hover {
+      background: #7d56a5;
+    }
+
+    .line {
+      height: 1px;
+      background-color: #b19cd9;
+      width: 100%;
+      opacity: 0.2;
+    }
+
+    .main-title {
+      background-color: #6a5acd;
+      font-size: large;
+      font-weight: bold;
+      display: flex;
+      height: 48px;
+      color: white;
+    }
+
+    .main-title > div {
+      height: 48px;
+      width: 48px;
+      display: flex;
+      margin-left: 8px;
+    }
+
+    .main-title > span {
+      margin: auto auto auto 8px;
+    }
+
+    .chat-area {
+      flex-grow: 1;
+      overflow: auto;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-message {
+      padding: 8px 48px 8px 16px;
+      flex-grow: 1;
+      border: none;
+      background: #4e4e4e;
+      color: #f0f0f0;
+    }
+
+    .input-message:focus {
+      outline: none;
+    }
+
+    .input-div {
+      height: 48px;
+      display: flex;
+    }
+
+    .input-send {
+      background: transparent;
+      width: 48px;
+      height: 48px;
+      right: 0;
+      border: none;
+      cursor: pointer;
+    }
+
+    .input-send:hover {
+      background: #7d56a5;
+    }
+
+    .chat-message-div {
+      display: flex;
+    }
+
+    .chat-message-sent {
+      background-color: #5a5a5a;
+      margin: 8px 16px 8px 64px;
+      padding: 8px 16px;
+      animation: fadeIn 100ms ease-in;
+      color: #f0f0f0;
+      border-radius: 8px 8px 2px 8px;
+    }
+
+    .chat-message-received {
+      background-color: #4e4e4e;
+      margin: 8px 64px 8px 16px;
+      padding: 8px 16px;
+      animation: fadeIn 100ms ease-in;
+      color: #f0f0f0;
+      border-radius: 8px 8px 8px 2px;
+    }
+
+   
+    .back-button {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #7d56a5;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #c87d26;
+      transform: translateY(-3px);
+    }
+
+    .back-button:active {
+      transform: translateY(0);
+    }
+
+   
+    .back-button::before {
+      content: "← ";
+      font-size: 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="title">
+    <i class="fa-solid fa-robot"></i>
+    <h3>QUEST BOT</h3>
+  </div>
+  <div id="chatbot" class="main-card collapsed">
+    <button id="chatbot_toggle">
+        <i class="fa-solid fa-comment" style="font-size: 24px;"></i>
+        <i class="fa-solid fa-times" style="font-size: 24px; display: none;"></i>
+    </button>
+    <div class="main-title">
+      <div>
+        <i class="fa-solid fa-robot" style="font-size: 35px; color: white;"></i>
+      </div>
+      <span>Chatbot</span>
+    </div>
+    <div class="chat-area" id="message-box"></div>
+    <div class="line"></div>
+    <div class="input-div">
+      <input class="input-message" name="message" type="text" id="message" placeholder="Type your message ..." />
+      <button class="input-send" onclick="send()">
+        <i class="fa-solid fa-paper-plane" style="font-size: 24px; color: #b19cd9;"></i>
+      </button>
+    </div>
+  </div>
+  <a href="WT.html" class="back-button">Back</a>
+  
+  <script>
+    var running = false;
+
+    var responses = {
+    "hello": "Hi there! How can I help you?",
+    "what is the order of a group?": "The order of a group is the number of elements in the group.",
+    "what is an abelian group?": "An abelian group is a group in which the operation is commutative, meaning that the order of operation does not matter (i.e. a*b=b*a).",
+    "what is path in graph?": " A path is a sequence of edges that connects a sequence of vertices without repeating any edges.",
+    "what is a tree in graph theory?": " A tree is a connected graph with no cycles. It has a hierarchical structure and any two vertices are connected by exactly one path.",
+    "what is graph isomorphism?": "Graph isomorphism is a relation between two graphs that indicates they are structurally the same, meaning there is a one-to-one correspondence between their vertex sets that preserves the edge connections.",
+    "what is a cycle in a graph?": "A cycle is a path that starts and ends at the same vertex without repeating any edges.",
+    "thank you": "You're welcome! If you have more questions, feel free to ask.",
+    "bye": "Goodbye! Have a great day!"
+};
+
+
+    function send() {
+      if (running) return;
+      var msg = document.getElementById("message").value.toLowerCase();
+      if (msg === "") return;
+      running = true;
+      addMsg(msg);
+      
+      var responseMsg = responses[msg] || "I'm sorry, I don't understand that.";
+      
+      window.setTimeout(addResponseMsg, 1000, responseMsg);
+    }
+
+    function addMsg(msg) {
+      var div = document.createElement("div");
+      div.innerHTML = "<span style='flex-grow:1'></span><div class='chat-message-sent'>" + msg + "</div>";
+      div.className = "chat-message-div";
+      document.getElementById("message-box").appendChild(div);
+      
+      document.getElementById("message").value = "";
+      document.getElementById("message-box").scrollTop = document.getElementById("message-box").scrollHeight;
+    }
+
+    function addResponseMsg(msg) {
+      var div = document.createElement("div");
+      div.innerHTML = "<div class='chat-message-received'>" + msg + "</div>";
+      div.className = "chat-message-div";
+      document.getElementById("message-box").appendChild(div);
+      document.getElementById("message-box").scrollTop = document.getElementById("message-box").scrollHeight;
+      running = false;
+    }
+
+    document.getElementById("message").addEventListener("keyup", function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        send();
+      }
+    });
+
+    document.getElementById("chatbot_toggle").onclick = function () {
+      var chatbot = document.getElementById("chatbot");
+      var toggleButton = document.getElementById("chatbot_toggle");
+      
+      if (chatbot.classList.contains("collapsed")) {
+        chatbot.classList.remove("collapsed");
+        toggleButton.children[0].style.display = "none"; 
+        toggleButton.children[1].style.display = ""; 
+        setTimeout(addResponseMsg, 1000, "Hi! How can I assist you?");
+      } else {
+        chatbot.classList.add("collapsed");
+        toggleButton.children[0].style.display = ""; 
+        toggleButton.children[1].style.display = "none"; 
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Box</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #e0e0e0; 
+            background-color: #121212; 
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto; 
+            padding: 20px;
+            background: #1e1e1e; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+        }
+
+        .heading {
+            color: #bb86fc; 
+            margin-bottom: 20px;
+            font-size: 2em; 
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .name-input, .comment-input {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 10px;
+            border: 2px solid #555; 
+            border-radius: 5px;
+            padding: 0 15px; 
+            background-color: #333; 
+            color: #e0e0e0; 
+            transition: border-color 0.3s ease;
+        }
+
+        .name-input:focus, .comment-input:focus {
+            border-color: #bb86fc; 
+            outline: none; 
+        }
+
+        .comment-btn, .remove-all-btn {
+            height: 60px;
+            color: #fff;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px; 
+        }
+
+        .comment-btn {
+    height: 60px;
+    background: linear-gradient(90deg, #4a90e2, #003d66); 
+    color: #fff; 
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease; 
+}
+        
+
+        .comment-btn:hover {
+            background: linear-gradient(90deg, #007bb8, #001f33); 
+       }
+
+        .remove-all-btn {
+            background-color: #555;
+            border: 1px solid #444; 
+        }
+
+        .remove-all-btn:hover {
+            background-color: #666; 
+        }
+
+        .comment-stream {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .comment-stream li {
+            padding: 15px;
+            border-left: 5px solid #bb86fc; 
+            background-color: #222; 
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: relative; 
+        }
+
+        .comment-remove {
+            display: none; 
+            position: absolute;
+            top: 50%;
+            right: 10px; 
+            transform: translateY(-50%); 
+            background-color: #FF3D00; 
+            color: white;
+            font-size: 1.1em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-stream li:hover .comment-remove {
+            display: block; 
+        }
+    </style>
+</head>
+<body>
+    <div class="commentbox-app">
+        <div class="container">
+            <h1 class="heading">Comment Box</h1>
+            <form id="comment-form" aria-label="Comment Form">
+                <input type="text" id="name-input" class="name-input" placeholder="Your Name" required>
+                <input type="text" id="comment-input" class="comment-input" placeholder="Your Message" required>
+                <input type="submit" value="Post" class="comment-btn">
+            </form>
+            <ul id="comment-stream" class="comment-stream"></ul>
+            <button class="remove-all-btn" id="remove-all" type="button">Remove All</button>
+        </div>
+    </div>
+    <script>
+        function getComments() {
+            return JSON.parse(localStorage.getItem('comments')) || [];
+        }
+
+        function saveComments(comments) {
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        function appendToStream(stream, name, message) {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${name}:</strong> ${message} <span class="comment-remove" onclick="removeComment(event)">&times;</span>`;
+            stream.appendChild(li);
+        }
+
+        function loadComments(stream) {
+            const comments = getComments();
+            comments.forEach(comment => {
+                appendToStream(stream, comment.name, comment.message);
+            });
+        }
+
+        function clearComments(stream) {
+            localStorage.removeItem('comments');
+            stream.innerHTML = '';
+        }
+
+        function removeComment(event) {
+            const commentItem = event.target.parentElement;
+            const comments = getComments();
+            const commentIndex = Array.from(commentItem.parentElement.children).indexOf(commentItem);
+            comments.splice(commentIndex, 1);
+            saveComments(comments);
+            commentItem.remove();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentForm = document.getElementById('comment-form');
+            const commentList = document.getElementById('comment-stream');
+
+            loadComments(commentList);
+
+            commentForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const nameInput = document.getElementById('name-input');
+                const commentInput = document.getElementById('comment-input');
+                const nameStr = nameInput.value.trim();
+                const commentStr = commentInput.value.trim();
+                
+                if (nameStr && commentStr) {
+                    const comments = getComments();
+                    comments.push({ name: nameStr, message: commentStr });
+                    saveComments(comments);
+                    appendToStream(commentList, nameStr, commentStr);
+                    nameInput.value = '';
+                    commentInput.value = '';
+                }
+            });
+
+            document.getElementById('remove-all').addEventListener('click', () => clearComments(commentList));
+        });
+    </script>
+</body>
+</html>
