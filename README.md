@@ -37,8 +37,9 @@ Mind-Sprint/
 │── package.json    
 └── README.md
 
-👩‍💻 Author
+---
 
+👩‍💻 Author
 Ananya Bhat N
 MCA Student | MIT
 Passionate about building simple and useful applications.
