@@ -2,6 +2,7 @@
 
 Mind Sprint is a simple and engaging online learning platform designed to help students explore topics and study materials through a clean and user-friendly interface.  
 It focuses on smooth navigation, fast loading, and easy access to learning modules.
+It is a mini project.
 
 ---
 
